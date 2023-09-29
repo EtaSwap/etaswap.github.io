@@ -41,8 +41,6 @@
             background: linear-gradient( 320deg, #E8FFCE 28%, #ACFADF 75% );
             position: relative;
         }
-        .container {
-        }
         .logo {
             font-size: 120px;
             width: 120px;
@@ -131,11 +129,17 @@
     </div>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6S7V2RDN"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        if (window.location.hostname !== 'localhost') {
+            window.dataLayer = window.dataLayer || [];
 
-        gtag('config', 'G-2K6S7V2RDN');
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+            gtag('config', 'G-2K6S7V2RDN');
+        }
     </script>
 </body>
 </html>
