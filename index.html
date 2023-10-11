@@ -12,14 +12,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta property="og:title" content="EtaSwap" />
-    <meta property="og:description" content="First DEX aggregator on Hedera. Seamless swaps, infinite possibilities." />
-    <meta property="og:image" content="https://etaswap.com/logo-og.png" />
-    <meta property="og:url" content="https://etaswap.com" />
-    <meta property="description" content="First DEX aggregator on Hedera. Seamless swaps, infinite possibilities." />
+    <meta property="og:title" content="EtaSwap"/>
+    <meta property="og:description" content="First DEX aggregator on Hedera. Seamless swaps, infinite possibilities."/>
+    <meta property="og:image" content="https://etaswap.com/logo-og.png"/>
+    <meta property="og:url" content="https://etaswap.com"/>
+    <meta property="description" content="First DEX aggregator on Hedera. Seamless swaps, infinite possibilities."/>
     <title>EtaSwap</title>
+    <link rel="stylesheet" href="./normalize.css"></link>
     <style>
-        @-webkit-keyframes rotate-logo{
+        @-webkit-keyframes rotate-logo {
             92% {
                 -webkit-transform: rotate(0deg);
                 transform: rotate(0deg);
@@ -45,6 +46,7 @@
                 transform: rotate(0deg);
             }
         }
+
         @keyframes rotate-logo {
             92% {
                 -webkit-transform: rotate(0deg);
@@ -71,37 +73,74 @@
                 transform: rotate(0deg);
             }
         }
+
         * {
+            -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
+
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+            "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+            sans-serif;
             margin: 0;
-            height: 100vh;
-            max-height: 100dvh;
             width: 100vw;
             max-width: 100%;
             display: -webkit-box;
-            display: -webkit-flex;
             display: -ms-flexbox;
             display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
             -webkit-box-align: center;
-            -webkit-align-items: center;
             -ms-flex-align: center;
             align-items: center;
             -webkit-box-pack: center;
-            -webkit-justify-content: center;
             -ms-flex-pack: center;
             justify-content: center;
             text-align: center;
-            background: -o-linear-gradient( 130deg, #E8FFCE 28%, #ACFADF 75% );
-            background: linear-gradient( 320deg, #E8FFCE 28%, #ACFADF 75% );
+            background: -o-linear-gradient(130deg, #E8FFCE 28%, #ACFADF 75%);
+            background: linear-gradient(320deg, #E8FFCE 28%, #ACFADF 75%);
             position: relative;
             z-index: 1;
         }
-        .container {
+
+        .main__screen {
+            height: 100vh;
+            max-height: 100dvh;
             position: relative;
             z-index: 3;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            max-width: 1300px;
+            padding: 0 20px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
         }
+
+        .main__screen-descr {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 0px;
+            flex: 1 1 0px;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .main__screen-banner-wrapper {
+            -webkit-box-flex: 2;
+            -ms-flex: 2 2 0px;
+            flex: 2 2 0px;
+            padding: 20px;
+        }
+
+        .main__screen-banner {
+            width: 100%;
+            display: block;
+        }
+
         .logo {
             font-size: 120px;
             width: 120px;
@@ -115,34 +154,31 @@
             -webkit-animation-timing-function: linear;
             animation-timing-function: linear;
         }
+
         .title {
-            font-size: 45px;
+            font-size: 3em;
             font-weight: 600;
         }
+
         .subtitle {
-            font-size: 20px;
+            font-size: 1.3em;
             font-weight: 400;
-            margin: 10px;
+            margin: 10px 0;
         }
+
         .launch {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
             -webkit-box-pack: center;
-            -webkit-justify-content: center;
             -ms-flex-pack: center;
             justify-content: center;
             -webkit-box-align: center;
-            -webkit-align-items: center;
             -ms-flex-align: center;
             align-items: center;
             background-color: #283660;
-            width: -webkit-calc(100%);
-            width: calc(100%);
-            height: 55px;
-            font-size: 20px;
-            -webkit-border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 1.2em;
             border-radius: 12px;
             color: #E8FFCE;
             -webkit-transition: 0.3s;
@@ -155,23 +191,122 @@
             font-weight: 400;
             text-decoration: none;
         }
-        .social {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            margin-left: -128px;
-            z-index: 2;
+
+        .faq {
+            position: relative;
+            z-index: 3;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            max-width: 1300px;
+            padding: 0 50px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            text-align: left;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
         }
+
+        .faq__title {
+            font-size: 2.2em;
+        }
+
+        .faq__item {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 0 100%;
+            flex: 1 0 100%;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        .faq__question {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding-bottom: 16px;
+        }
+
+        .faq__answer {
+            font-style: italic;
+            padding-left: 20px;
+            font-size: 1.2em;
+        }
+
+        .howto {
+            position: relative;
+            z-index: 3;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            max-width: 1300px;
+            padding: 0 50px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .howto__title {
+            font-size: 2.2em;
+        }
+
+        .howto__inner {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .howto__banner-wrapper {
+            -webkit-box-flex: 3;
+            -ms-flex: 3 3 0px;
+            flex: 3 3 0px;
+        }
+
+        .howto__banner {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .howto__descr {
+            font-size: 1.2em;
+            -webkit-box-flex: 2;
+            -ms-flex: 2 2 0px;
+            flex: 2 2 0px;
+        }
+
+        .social {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            z-index: 2;
+            padding: 40px;
+        }
+
         .social__link {
             text-decoration: none;
             display: inline-block;
             margin: 0 4px;
         }
+
         .social__image {
             width: 40px;
             height: 40px;
             vertical-align: top;
         }
+
         .particles {
             position: absolute;
             z-index: 1;
@@ -180,54 +315,174 @@
             top: 0;
             left: 0;
         }
+
+        @media screen and (max-width: 992px) {
+            .main__screen {
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                height: auto;
+                max-height: none;
+            }
+
+            .main__screen-descr {
+                text-align: center;
+            }
+
+            .launch {
+                margin-bottom: 0;
+            }
+
+            .title {
+                margin: 0.3em 0;
+            }
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .main__screen-descr {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .main__screen-banner-wrapper {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .howto {
+                padding: 0 20px;
+            }
+
+            .howto__inner {
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .faq {
+                padding: 0 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="main__screen">
+    <div class="main__screen-descr">
         <img class="logo" src="/logo.svg" alt="η" title="η">
         <h1 class="title">EtaSwap</h1>
         <h3 class="subtitle">First DEX aggregator on Hedera.</h3>
         <h3 class="subtitle">Seamless Swaps, Infinite Possibilities.</h3>
         <a href="https://app.etaswap.com" class="launch">Launch app (beta)</a>
     </div>
-    <div class="social">
-        <a class="social__link" href="https://twitter.com/eta_swap" target="_blank" title="Twitter">
-            <img class="social__image" src="./icon_twitter.svg" alt="Twitter">
-        </a>
-        <a class="social__link" href="https://t.me/etaswap" target="_blank" title="Telegram">
-            <img class="social__image" src="./icon_telegram.svg" alt="Telegram">
-        </a>
-        <a class="social__link" href="https://www.reddit.com/r/etaswap/" target="_blank" title="Reddit">
-            <img class="social__image" src="./icon_reddit.svg" alt="Reddit">
-        </a>
-        <a class="social__link" href="https://discord.gg/gZshGtXW2" target="_blank" title="Discord">
-            <img class="social__image" src="./icon_discord.svg" alt="Discord">
-        </a>
-        <a class="social__link" href="https://github.com/EtaSwap" target="_blank" title="GitHub">
-            <img class="social__image" src="./icon_github.svg" alt="GitHub">
-        </a>
+    <div class="main__screen-banner-wrapper">
+        <img class="main__screen-banner" src="devices.png" alt="Etaswap on devices">
     </div>
-    <div id="particles-js" class="particles"></div>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6S7V2RDN"></script>
-    <script>
-        if (window.location.hostname !== 'localhost') {
-            window.dataLayer = window.dataLayer || [];
+</div>
+<div class="howto">
+    <h2 class="howto__title">How it works</h2>
+    <div class="howto__inner">
+        <div class="howto__banner-wrapper">
+            <img class="howto__banner" src="./aggregator.png" alt="DEX aggregator">
+        </div>
+        <div class="howto__descr">
+            <p>The purpose of DEX aggregator - is to check swap rates among all DEX-es and provide the best exchange
+                rate for user.</p>
+            <p>DEX aggregator guarantees freshest rate as it's working on smart-contract level directly, without any
+                intermediate API.</p>
+            <p>There are two main components of EtaSwap as DEX aggregator: first - price oracles, which allows us to
+                find best rates and second - exchange contract with all DEX-es adapters.</p>
+        </div>
+    </div>
+</div>
+<div class="faq">
+    <h2 class="faq__title">FAQ</h2>
+    <div class="faq__item">
+        <div class="faq__question">Which exchanges do you support?</div>
+        <div class="faq__answer">Currently we aggregate <a href="https://www.saucerswap.finance/" target="_blank">SaucerSwap</a>,
+            <a href="https://www.pangolin.exchange/" target="_blank">Pangolin</a> and <a href="https://www.heliswap.io/"
+                                                                                         target="_blank">HeliSwap</a>.
+            But we always open to add new exchanges if something appears in Hedera ecosystem. Feel free to contact us to
+            add another DEX.
+        </div>
+    </div>
+    <div class="faq__item">
+        <div class="faq__question">But what about HSuite?</div>
+        <div class="faq__answer"><a href="https://www.hsuite.finance/" target="_blank">HSuite</a> is not really DEX.
+            It's another kind of technology.
+        </div>
+    </div>
+    <div class="faq__item">
+        <div class="faq__question">Do you provide liquidity?</div>
+        <div class="faq__answer">No, DEX aggregator not supposed to work as DEX. It's just looking for a best prices
+            among liquidity providers.
+        </div>
+    </div>
+    <div class="faq__item">
+        <div class="faq__question">How does economic part of application works, will I pay fee?</div>
+        <div class="faq__answer">EtaSwap is taking pretty small fee (0.2% - 0.5%) per each transaction. More explanation
+            about fees in
+            <a href="https://docs.etaswap.com/fees-explanation">documentation</a>.
+        </div>
+    </div>
+    <div class="faq__item">
+        <div class="faq__question">Is EtaSwap open-source project?</div>
+        <div class="faq__answer">Yes, EtaSwap fully transparent and open-source project. Source code of EtaSwap
+            available
+            on
+            <a href="https://github.com/EtaSwap">Github</a>. We appreciate any kind of participation, feel free to open
+            issues, ask questions or make pull requests.
+        </div>
+    </div>
+    <div class="faq__item">
+        <div class="faq__question">Do you plan to audit your smart contracts?</div>
+        <div class="faq__answer">The application in Beta stage at the moment, also we are working on new killer features
+            (such as splitting order among DEX-es), so it's not final version of smart contracts yet. As soon as we will
+            be ready with final features and ready financially we will request smart-contract audit.
+        </div>
+    </div>
+</div>
+<div class="social">
+    <a class="social__link" href="https://twitter.com/eta_swap" target="_blank" title="Twitter">
+        <img class="social__image" src="./icon_twitter.svg" alt="Twitter">
+    </a>
+    <a class="social__link" href="https://t.me/etaswap" target="_blank" title="Telegram">
+        <img class="social__image" src="./icon_telegram.svg" alt="Telegram">
+    </a>
+    <a class="social__link" href="https://www.reddit.com/r/etaswap/" target="_blank" title="Reddit">
+        <img class="social__image" src="./icon_reddit.svg" alt="Reddit">
+    </a>
+    <a class="social__link" href="https://discord.gg/gZshGtXW2" target="_blank" title="Discord">
+        <img class="social__image" src="./icon_discord.svg" alt="Discord">
+    </a>
+    <a class="social__link" href="https://github.com/EtaSwap" target="_blank" title="GitHub">
+        <img class="social__image" src="./icon_github.svg" alt="GitHub">
+    </a>
+</div>
+<div id="particles-js" class="particles"></div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2K6S7V2RDN"></script>
+<script>
+    if (window?.location?.hostname !== 'localhost') {
+        window.dataLayer = window.dataLayer || [];
 
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
-            gtag('js', new Date());
-
-            gtag('config', 'G-2K6S7V2RDN');
+        function gtag() {
+            dataLayer.push(arguments);
         }
-    </script>
-    <script src="./particles.min.js"></script>
-    <script>
-        particlesJS.load('particles-js', 'particlesjs-config.json', function() {
-            console.log('callback - particles.js config loaded');
-        });
-    </script>
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-2K6S7V2RDN');
+    }
+</script>
+<script src="./particles.min.js"></script>
+<script>
+    particlesJS.load('particles-js', 'particlesjs-config.json', function () {
+        console.log('callback - particles.js config loaded');
+    });
+</script>
 </body>
 </html>
 
