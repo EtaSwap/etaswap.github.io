@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <meta name="description"
           content="First DEX aggregator on Hedera. Find best rate among SaucerSwap, Pangolin and Heliswap. Seamless swaps, infinite possibilities."/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -166,6 +166,7 @@
             font-size: 1.3em;
             font-weight: 400;
             margin: 10px 0;
+            line-height: 1.5;
         }
 
         .launch {
@@ -409,19 +410,18 @@
     <div class="main__screen-descr">
         <img class="logo" src="/logo.svg" alt="η" title="η">
         <h1 class="title">EtaSwap</h1>
-        <h3 class="subtitle">First DEX aggregator on Hedera.</h3>
-        <h3 class="subtitle">Seamless Swaps, Infinite Possibilities.</h3>
+        <h3 class="subtitle">First DEX aggregator on Hedera. <br/>Seamless Swaps, Infinite Possibilities.</h3>
         <a href="https://app.etaswap.com" class="launch">Launch app (beta)</a>
     </div>
     <div class="main__screen-banner-wrapper">
-        <img class="main__screen-banner" src="devices.png" alt="Etaswap on devices">
+        <img class="main__screen-banner" src="devices.webp" alt="Etaswap on devices">
     </div>
 </div>
 <div class="howto">
     <h2 class="howto__title">How it works</h2>
     <div class="howto__inner">
         <div class="howto__banner-wrapper">
-            <img class="howto__banner" src="./aggregator.png" alt="DEX aggregator">
+            <img class="howto__banner" src="./aggregator.webp" alt="DEX aggregator">
         </div>
         <div class="howto__descr">
             <p>The purpose of DEX aggregator - is to check swap rates among all DEX-es and provide the best exchange
@@ -443,7 +443,8 @@
         <div class="faq__question">Which exchanges do you support?</div>
         <div class="faq__answer">Currently we aggregate <a href="https://www.saucerswap.finance/" target="_blank">SaucerSwap</a>,
             <a href="https://www.pangolin.exchange/" target="_blank">Pangolin</a>, <a href="https://www.heliswap.io/"
-                                                                                         target="_blank">HeliSwap</a>, and <a href="https://hsuite.finance/" target="_blank">HSuite</a> .
+                                                                                      target="_blank">HeliSwap</a>, and
+            <a href="https://hsuite.finance/" target="_blank">HSuite</a> .
             But we always open to add new exchanges if something appears in Hedera ecosystem. Feel free to contact us to
             add another DEX.
         </div>
@@ -516,70 +517,84 @@
         console.log('callback - particles.js config loaded');
     });
 </script>
-<script src="./keccak256.js"></script>
 <script src="./chart.js"></script>
 <script>
-    function hex(buffer) { // buffer is an ArrayBuffer
-        return `0x${[...buffer]
-            .map(x => x.toString(16).padStart(2, '0'))
-            .join('')}`;
-    }
-
     const exchangeSwapTopic = '0xbeee1e6e7fe307ddcf84b0a16137a4430ad5e2480fc4f4a8e250ab56ccd7630d';
-    const aggregators = {
-        SaucerSwap: { hash: hex(keccak256('SaucerSwap')), color: '#33BA2B', txAmount: 0 },
-        Pangolin: { hash: hex(keccak256('Pangolin')), color: '#FFC800', txAmount: 0 },
-        HeliSwap: { hash: hex(keccak256('HeliSwap')), color: '#2f18e5', txAmount: 0 },
-    }
-    fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/contracts/0.0.3745835/results/logs?limit=2000')
-        .then(res => res.json())
-        .then(async res => {
-            const logs = res.logs.filter(log => log.topics[0] === exchangeSwapTopic);
-            logs.forEach(log => {
-                switch (log.topics[1]) {
-                    case aggregators.SaucerSwap.hash:
-                        aggregators.SaucerSwap.txAmount++;
-                        break;
-                    case aggregators.Pangolin.hash:
-                        aggregators.Pangolin.txAmount++;
-                        break;
-                    case aggregators.HeliSwap.hash:
-                        aggregators.HeliSwap.txAmount++;
-                        break;
-                    default:
-                        break;
-                }
-            });
 
-            const ctx = document.getElementById('stats');
-            new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: Object.keys(aggregators),
-                    datasets: [{
-                        label: 'Transactions, using exchange',
-                        data: Object.values(aggregators).map(aggregator => aggregator.txAmount),
-                        backgroundColor: Object.values(aggregators).map(aggregator => aggregator.color),
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Transactions amount made with EtaSwap',
-                            font: {
-                                family: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-                                size: 18
-                            }
+    //Hash calculation: hex(keccak256('AdapterName'))
+    const aggregators = {
+        SaucerSwap: { hash: '0x80a607c5371b7579368939531261896136b90119d73a24d9f4bca4491e31ecfd', color: '#33BA2B', txAmount: 0 },
+        Pangolin: { hash: '0xf6c1fd481c0d752ea9dfddb9d9be94f6578ec5eb86e6ac7a24a75d1553d37e47', color: '#FFC800', txAmount: 0 },
+        HeliSwap: { hash: '0x331ff93de7a46ebb2afa4560b9aa185d21b43d744d18c4507423c7a4af2597b2', color: '#2f18e5', txAmount: 0 },
+        HSuite: { hash: null, color: '#890bf8', txAmount: 0 },
+    }
+    Promise.all([
+        fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/contracts/0.0.3745835/results/logs?limit=2000'),
+        fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/transactions?account.id=0.0.3745833&limit=2000&transactionType=CRYPTOTRANSFER&type=credit&result=SUCCESS'),
+    ]).then(async ([exchangeRes, feeRes]) => {
+        const exchangeResJSON = await exchangeRes.json();
+        let feeResJSON = await feeRes.json();
+        let feeResArray = feeResJSON.transactions;
+        while(feeResJSON.links && feeResJSON.links.next) {
+            const nextBatch = await fetch(`https://mainnet-public.mirrornode.hedera.com${feeResJSON.links.next}`);
+            feeResJSON = await nextBatch.json();
+            feeResArray = feeResArray.concat(feeResJSON.transactions);
+        }
+        const exchangeLogs = exchangeResJSON.logs.filter(log => log.topics[0] === exchangeSwapTopic);
+        exchangeLogs.forEach(log => {
+            switch (log.topics[1]) {
+                case aggregators.SaucerSwap.hash:
+                    aggregators.SaucerSwap.txAmount++;
+                    break;
+                case aggregators.Pangolin.hash:
+                    aggregators.Pangolin.txAmount++;
+                    break;
+                case aggregators.HeliSwap.hash:
+                    aggregators.HeliSwap.txAmount++;
+                    break;
+                default:
+                    break;
+            }
+        });
+        for (let i = 0; i < feeResArray.length; i++) {
+            if (
+                feeResArray[i].transfers.find(transfer => transfer.account === '0.0.3745833' && transfer.amount > 0)
+                && feeResArray[i].memo_base64
+                && atob(feeResArray[i].memo_base64).startsWith('Hsuite Exchange')
+            ) {
+                aggregators.HSuite.txAmount++;
+            }
+        }
+
+        const ctx = document.getElementById('stats');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(aggregators),
+                datasets: [{
+                    label: 'Transactions, using exchange',
+                    data: Object.values(aggregators).map(aggregator => aggregator.txAmount),
+                    backgroundColor: Object.values(aggregators).map(aggregator => aggregator.color),
+                }],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Transactions amount made with EtaSwap',
+                        font: {
+                            family: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+                            size: 18
                         }
                     }
-                },
-            });
+                }
+            },
         });
+    });
 </script>
 </body>
 </html>
