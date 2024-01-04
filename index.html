@@ -536,7 +536,13 @@
         fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/contracts/0.0.3745835/results/logs?limit=2000'),
         fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/transactions?account.id=0.0.3745833&limit=2000&transactionType=CRYPTOTRANSFER&type=credit&result=SUCCESS'),
     ]).then(async ([exchangeRes, feeRes]) => {
-        const exchangeResJSON = await exchangeRes.json();
+        let exchangeResJSON = await exchangeRes.json();
+        let exchangeResArray = exchangeResJSON.logs;
+        while(exchangeResJSON.links && exchangeResJSON.links.next) {
+            const nextBatch = await fetch(`https://mainnet-public.mirrornode.hedera.com${exchangeResJSON.links.next}`);
+            exchangeResJSON = await nextBatch.json();
+            exchangeResArray = exchangeResArray.concat(exchangeResJSON.logs);
+        }
         let feeResJSON = await feeRes.json();
         let feeResArray = feeResJSON.transactions;
         while(feeResJSON.links && feeResJSON.links.next) {
@@ -544,7 +550,7 @@
             feeResJSON = await nextBatch.json();
             feeResArray = feeResArray.concat(feeResJSON.transactions);
         }
-        const exchangeLogs = exchangeResJSON.logs.filter(log => log.topics[0] === exchangeSwapTopic);
+        const exchangeLogs = exchangeResArray.filter(log => log.topics[0] === exchangeSwapTopic);
         exchangeLogs.forEach(log => {
             switch (log.topics[1]) {
                 case aggregators.SaucerSwap.hash:
