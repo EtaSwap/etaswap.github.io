@@ -559,11 +559,11 @@
         HeliSwap: { hash: '0x331ff93de7a46ebb2afa4560b9aa185d21b43d744d18c4507423c7a4af2597b2', color: '#2f18e5', txAmount: 0 },
         HSuite: { hash: null, color: '#890bf8', txAmount: 0 },
     };
-    let transactionsByDate = {};
+    const transactionsByDate = {};
     // Launch of EtaSwap
     let startDate = new Date('2023-09-01');
     const today = new Date();
-    const getDateKey = (date) => (date.getUTCDay() + 1).toString().padStart(2, 0) + '-' + (date.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + date.getUTCFullYear().toString();
+    const getDateKey = (date) => date.getUTCFullYear().toString() + '-' + (date.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + (date.getDate() + 1).toString().padStart(2, 0);
     while (startDate <= today) {
         transactionsByDate[getDateKey(startDate)] = {
             SaucerSwap: 0,
@@ -662,13 +662,21 @@
             },
         });
 
+        const orderedTransactionsByDate = Object.keys(transactionsByDate).sort().reduce(
+            (obj, key) => {
+                obj[key] = transactionsByDate[key];
+                return obj;
+            },
+            {}
+        );
+
         new Chart(ctxBar, {
             type: 'bar',
             data: {
-                labels: Object.keys(transactionsByDate),
+                labels: Object.keys(orderedTransactionsByDate),
                 datasets: Object.keys(aggregators).map(aggregatorId => ({
                     label: aggregatorId,
-                    data: Object.values(transactionsByDate).map(transactions => transactions[aggregatorId]),
+                    data: Object.values(orderedTransactionsByDate).map(transactions => transactions[aggregatorId]),
                     backgroundColor: aggregators[aggregatorId].color,
                 }))
             },
