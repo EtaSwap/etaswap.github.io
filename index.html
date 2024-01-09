@@ -213,15 +213,33 @@
             text-align: left;
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
+            width: 100%;
         }
 
         .stats__title {
             font-size: 2.2em;
         }
 
-        .stats__chart {
-            width: 400px;
-            max-width: 100%;
+        .stats__chart-wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            align-content: space-between;
+            width: 100%;
+        }
+
+        .stats__chart-small {
+            width: 100%;
+            max-width: 300px;
+            max-height: 450px;
+        }
+
+        .stats__chart-large {
+            max-width: 800px;
+            max-height: 450px;
+            width: 100%;
         }
 
         .faq {
@@ -399,6 +417,12 @@
                 padding: 0 20px 20px;
             }
 
+            .stats__chart-large {
+                max-width: 800px;
+                max-height: 350px;
+                width: 100%;
+            }
+
             .faq {
                 padding: 0 20px;
             }
@@ -417,7 +441,7 @@
         <img class="main__screen-banner" src="devices.webp" alt="Etaswap on devices">
     </div>
 </div>
-<div class="howto">
+<div class="howto" id="howto">
     <h2 class="howto__title">How it works</h2>
     <div class="howto__inner">
         <div class="howto__banner-wrapper">
@@ -433,11 +457,14 @@
         </div>
     </div>
 </div>
-<div class="stats">
+<div class="stats" id="stats">
     <h2 class="stats__title">Statistics</h2>
-    <canvas class="stats__chart" id="stats"></canvas>
+    <div class="stats__chart-wrapper">
+        <canvas class="stats__chart-small" id="stats-pie"></canvas>
+        <canvas class="stats__chart-large" id="stats-bar"></canvas>
+    </div>
 </div>
-<div class="faq">
+<div class="faq" id="faq">
     <h2 class="faq__title">FAQ</h2>
     <div class="faq__item">
         <div class="faq__question">Which exchanges do you support?</div>
@@ -483,7 +510,7 @@
         </div>
     </div>
 </div>
-<div class="social">
+<div class="social" id="social">
     <a class="social__link" href="https://twitter.com/eta_swap" target="_blank" title="Twitter">
         <img class="social__image" src="./icon_twitter.svg" alt="Twitter">
     </a>
@@ -531,7 +558,34 @@
         Pangolin: { hash: '0xf6c1fd481c0d752ea9dfddb9d9be94f6578ec5eb86e6ac7a24a75d1553d37e47', color: '#FFC800', txAmount: 0 },
         HeliSwap: { hash: '0x331ff93de7a46ebb2afa4560b9aa185d21b43d744d18c4507423c7a4af2597b2', color: '#2f18e5', txAmount: 0 },
         HSuite: { hash: null, color: '#890bf8', txAmount: 0 },
+    };
+    let transactionsByDate = {};
+    // Launch of EtaSwap
+    let startDate = new Date('2023-09-01');
+    const today = new Date();
+    const getDateKey = (date) => (date.getUTCDay() + 1).toString().padStart(2, 0) + '-' + (date.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + date.getUTCFullYear().toString();
+    while (startDate <= today) {
+        transactionsByDate[getDateKey(startDate)] = {
+            SaucerSwap: 0,
+            Pangolin: 0,
+            HeliSwap: 0,
+            HSuite: 0,
+        };
+        startDate.setUTCDate(startDate.getUTCDate() + 1);
     }
+
+    const pushTransactionByDate = (aggregatorId, timestamp) => {
+        const dateKey = getDateKey(new Date(+(timestamp.split('.')[0] + '000')));
+        if (transactionsByDate[dateKey]) {
+            if (transactionsByDate[dateKey][aggregatorId]) {
+                transactionsByDate[dateKey][aggregatorId] += 1;
+            } else {
+                transactionsByDate[dateKey][aggregatorId] = 1;
+            }
+        } else {
+            transactionsByDate[dateKey] = { [aggregatorId]: 1 };
+        }
+    };
     Promise.all([
         fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/contracts/0.0.3745835/results/logs?limit=2000'),
         fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/transactions?account.id=0.0.3745833&limit=2000&transactionType=CRYPTOTRANSFER&type=credit&result=SUCCESS'),
@@ -555,12 +609,15 @@
             switch (log.topics[1]) {
                 case aggregators.SaucerSwap.hash:
                     aggregators.SaucerSwap.txAmount++;
+                    pushTransactionByDate('SaucerSwap', log.timestamp);
                     break;
                 case aggregators.Pangolin.hash:
                     aggregators.Pangolin.txAmount++;
+                    pushTransactionByDate('Pangolin', log.timestamp);
                     break;
                 case aggregators.HeliSwap.hash:
                     aggregators.HeliSwap.txAmount++;
+                    pushTransactionByDate('HeliSwap', log.timestamp);
                     break;
                 default:
                     break;
@@ -573,12 +630,14 @@
                 && atob(feeResArray[i].memo_base64).startsWith('Hsuite Exchange')
             ) {
                 aggregators.HSuite.txAmount++;
+                pushTransactionByDate('HSuite', feeResArray[i].consensus_timestamp);
             }
         }
 
-        const ctx = document.getElementById('stats');
-        new Chart(ctx, {
-            type: 'pie',
+        const ctxPie = document.getElementById('stats-pie');
+        const ctxBar = document.getElementById('stats-bar');
+        new Chart(ctxPie, {
+            type: 'doughnut',
             data: {
                 labels: Object.keys(aggregators),
                 datasets: [{
@@ -590,9 +649,7 @@
             options: {
                 responsive: true,
                 plugins: {
-                    legend: {
-                        position: 'top',
-                    },
+                    legend: { position: 'top' },
                     title: {
                         display: true,
                         text: 'Transactions amount made with EtaSwap',
@@ -601,6 +658,37 @@
                             size: 18
                         }
                     }
+                }
+            },
+        });
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(transactionsByDate),
+                datasets: Object.keys(aggregators).map(aggregatorId => ({
+                    label: aggregatorId,
+                    data: Object.values(transactionsByDate).map(transactions => transactions[aggregatorId]),
+                    backgroundColor: aggregators[aggregatorId].color,
+                }))
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: {
+                        display: true,
+                        text: 'Transactions amount/time made with EtaSwap',
+                        font: {
+                            family: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+                            size: 18
+                        }
+                    }
+                },
+                scales: {
+                    x: { stacked: true, categoryPercentage: 1.0, barPercentage: 1.0 },
+                    y: { stacked: true },
                 }
             },
         });
