@@ -195,6 +195,108 @@
             text-decoration: none;
         }
 
+        .roadmap {
+            position: relative;
+            z-index: 3;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            max-width: 1300px;
+            padding: 0 50px 40px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            text-align: left;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .roadmap__title {
+            font-size: 2.2em;
+        }
+
+        .roadmap__wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .roadmap__list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+        }
+
+        .roadmap__list-item {
+            font-size: 1.2em;
+            position: relative;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            min-height: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .roadmap__list-item a {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+
+        .roadmap__list-item::after {
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: rgb(3, 139, 98);
+            border-radius: 50%;
+            top: 50%;
+            margin-top: -18px;
+            border: 2px solid  #fff;
+            box-shadow: 0 0 10px #000;
+        }
+
+        .roadmap__list-item--past {
+            width: 50%;
+            text-align: right;
+            padding-right: 30px;
+            justify-content: right;
+        }
+
+        .roadmap__list-item--past::after {
+            right: -18px;
+        }
+
+        .roadmap__list-item--present {
+            width: 50%;
+            text-align: right;
+            padding-right: 30px;
+            justify-content: right;
+        }
+
+        .roadmap__list-item--present::after{
+            right: -18px;
+            background: #81B44A;
+        }
+
+        .roadmap__list-item--future {
+            width: 50%;
+            align-self: end;
+            padding-left: 30px;
+            justify-content: left;
+        }
+
+        .roadmap__list-item--future::after {
+            left: -18px;
+            background: #ffdd31;
+        }
+
         .stats {
             position: relative;
             z-index: 3;
@@ -448,13 +550,39 @@
             <img class="howto__banner" src="./aggregator.webp" alt="DEX aggregator">
         </div>
         <div class="howto__descr">
-            <p>The purpose of DEX aggregator - is to check swap rates among all DEX-es and provide the best exchange
-                rate for user.</p>
-            <p>DEX aggregator guarantees freshest rate as it's working on smart-contract level directly, without any
-                intermediate API.</p>
-            <p>There are two main components of EtaSwap as DEX aggregator: first - price oracles, which allows us to
-                find best rates and second - exchange contract with all DEX-es adapters.</p>
+            <p>A <strong>decentralized exchange (DEX) aggregator</strong> is an application that connects to multiple
+                decentralized exchanges and consolidates liquidity from various sources into a single interface.</p>
+            <p>It allows you to trade digital assets across different decentralized platforms without the need
+                to visit each exchange individually.</p>
+            <p>EtaSwap is platform to find the best prices and optimal routes for executing trades, this is the
+                single entrypoint to swap tokens across all exchanges in <strong>Hedera</strong> ecosystem.</p>
         </div>
+    </div>
+</div>
+<div class="roadmap" id="roadmap">
+    <h2 class="roadmap__title">Roadmap</h2>
+    <div class="roadmap__wrapper">
+        <ul class="roadmap__list">
+            <li class="roadmap__list-item roadmap__list-item--past">Release beta version (with support of
+                <a href="https://www.saucerswap.finance/" target="_blank">SaucerSwap</a>,
+                <a href="https://www.pangolin.exchange/" target="_blank">Pangolin</a> and
+                <a href="https://www.heliswap.io/" target="_blank">HeliSwap</a> DEXes and
+                <a href="https://www.hashpack.app/" target="_blank">HashPack</a> wallet)</li>
+            <li class="roadmap__list-item roadmap__list-item--past">Collecting initial UX feedback, front-end improvements</li>
+            <li class="roadmap__list-item roadmap__list-item--past">Integration of <a href="https://bladewallet.io/" target="_blank">BladeWallet</a></li>
+            <li class="roadmap__list-item roadmap__list-item--past">Integration of <a href="https://hsuite.finance/" target="_blank">HSuite</a></li>
+            <li class="roadmap__list-item roadmap__list-item--present">We right here</li>
+            <li class="roadmap__list-item roadmap__list-item--future">Release EtaSwap V2 smart-contracts (with support of SaucerSwap V2)</li>
+            <li class="roadmap__list-item roadmap__list-item--future">Implementing smart-routing (indirect swaps) for SaucerSwap V1 and Pangolin</li>
+            <li class="roadmap__list-item roadmap__list-item--future">Loyalty program (under discussion)</li>
+            <li class="roadmap__list-item roadmap__list-item--future">Redesign</li>
+            <li class="roadmap__list-item roadmap__list-item--future">Advanced statistics (transactions/volumes)</li>
+            <li class="roadmap__list-item roadmap__list-item--future">Constructing API for integration EtaSwap to wallets/DApps</a></li>
+            <li class="roadmap__list-item roadmap__list-item--future">Integration of <a href="https://walletconnect.com/" target="_blank">WalletConnect</a></li>
+            <li class="roadmap__list-item roadmap__list-item--future">Implementing split-swaps</li>
+            <li class="roadmap__list-item roadmap__list-item--future">Implementing cross-DEX swaps</li>
+            <li class="roadmap__list-item roadmap__list-item--future">And much more... </li>
+        </ul>
     </div>
 </div>
 <div class="stats" id="stats">
