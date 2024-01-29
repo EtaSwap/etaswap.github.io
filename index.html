@@ -278,6 +278,8 @@
             text-align: right;
             padding-right: 30px;
             justify-content: right;
+            font-style: italic;
+            text-decoration: underline;
         }
 
         .roadmap__list-item--present::after{
@@ -513,6 +515,22 @@
                 -ms-flex-direction: column;
                 flex-direction: column;
                 gap: 0;
+            }
+
+            .roadmap {
+                padding: 0 20px;
+            }
+
+            .roadmap__list-item {
+                justify-content: left;
+                text-align: left;
+                width: 100%;
+                padding-left: 60px;
+            }
+
+            .roadmap__list-item::after {
+                left: 0;
+                right: auto;
             }
 
             .stats {
