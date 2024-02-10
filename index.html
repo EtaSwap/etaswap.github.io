@@ -767,7 +767,6 @@
             if (
                 feeResArray[i].transfers.find(transfer => transfer.account === '0.0.3745833' && transfer.amount > 0)
                 && feeResArray[i].memo_base64
-                && atob(feeResArray[i].memo_base64).startsWith('Hsuite Exchange')
             ) {
                 aggregators.HSuite.txAmount++;
                 pushTransactionByDate('HSuite', feeResArray[i].consensus_timestamp);
