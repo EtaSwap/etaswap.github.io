@@ -728,7 +728,7 @@
     };
     Promise.all([
         fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/contracts/0.0.3745835/results/logs?limit=2000'),
-        fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/transactions?account.id=0.0.3745833&limit=2000&transactionType=CRYPTOTRANSFER&type=credit&result=SUCCESS'),
+        fetch('https://mainnet-public.mirrornode.hedera.com/api/v1/transactions?account.id=0.0.3745833&limit=2000&transactionType=CRYPTOTRANSFER&type=credit&result=success'),
     ]).then(async ([exchangeRes, feeRes]) => {
         let exchangeResJSON = await exchangeRes.json();
         let exchangeResArray = exchangeResJSON.logs;
