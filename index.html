@@ -169,6 +169,10 @@
             line-height: 1.5;
         }
 
+        .main__screen-subtitle {
+            margin-bottom: 25px;
+        }
+
         .launch {
             display: -webkit-inline-box;
             display: -ms-inline-flexbox;
@@ -187,12 +191,16 @@
             -webkit-transition: 0.3s;
             -o-transition: 0.3s;
             transition: 0.3s;
-            margin-bottom: 30px;
-            margin-top: 28px;
+            margin-bottom: 4px;
+            margin-top: 3px;
             border: 0;
             cursor: pointer;
             font-weight: 400;
             text-decoration: none;
+        }
+
+        .launch--shadow {
+            background-color: #959598;
         }
 
         .roadmap {
@@ -554,8 +562,9 @@
     <div class="main__screen-descr">
         <img class="logo" src="/logo.svg" alt="η" title="η">
         <h1 class="title">EtaSwap</h1>
-        <h3 class="subtitle">First DEX aggregator on Hedera. <br/>Seamless Swaps, Infinite Possibilities.</h3>
-        <a href="https://app.etaswap.com" class="launch">Launch app (beta)</a>
+        <h3 class="subtitle main__screen-subtitle">First DEX aggregator on Hedera. <br/>Seamless Swaps, Infinite Possibilities.</h3>
+        <a href="https://next.etaswap.com" class="launch">Launch app (next)</a>
+        <a href="https://app.etaswap.com" class="launch launch--shadow">Launch app (beta)</a>
     </div>
     <div class="main__screen-banner-wrapper">
         <img class="main__screen-banner" src="devices.webp" alt="Etaswap on devices">
@@ -589,8 +598,8 @@
             <li class="roadmap__list-item roadmap__list-item--past">Collecting initial UX feedback, front-end improvements</li>
             <li class="roadmap__list-item roadmap__list-item--past">Integration of <a href="https://bladewallet.io/" target="_blank">BladeWallet</a></li>
             <li class="roadmap__list-item roadmap__list-item--past">Integration of <a href="https://hsuite.finance/" target="_blank">HSuite</a></li>
+            <li class="roadmap__list-item roadmap__list-item--past">Release EtaSwap V2 smart-contracts (with support of SaucerSwap V2)</li>
             <li class="roadmap__list-item roadmap__list-item--present">We right here</li>
-            <li class="roadmap__list-item roadmap__list-item--future">Release EtaSwap V2 smart-contracts (with support of SaucerSwap V2)</li>
             <li class="roadmap__list-item roadmap__list-item--future">Implementing smart-routing (indirect swaps) for SaucerSwap V1 and Pangolin</li>
             <li class="roadmap__list-item roadmap__list-item--future">Loyalty program (under discussion)</li>
             <li class="roadmap__list-item roadmap__list-item--future">Redesign</li>
@@ -614,17 +623,13 @@
     <h2 class="faq__title">FAQ</h2>
     <div class="faq__item">
         <div class="faq__question">Which exchanges do you support?</div>
-        <div class="faq__answer">Currently we aggregate <a href="https://www.saucerswap.finance/" target="_blank">SaucerSwap (V1)</a>,
+        <div class="faq__answer">Currently we aggregate <a href="https://www.saucerswap.finance/" target="_blank">SaucerSwap (V1 and V2)</a>,
             <a href="https://www.pangolin.exchange/" target="_blank">Pangolin</a>, <a href="https://www.heliswap.io/"
                                                                                       target="_blank">HeliSwap</a>, and
             <a href="https://hsuite.finance/" target="_blank">HSuite</a> .
             But we are always open to add new exchanges if something appears in Hedera ecosystem. Feel free to contact us to
             add another DEX.
         </div>
-    </div>
-    <div class="faq__item">
-        <div class="faq__question">What about SaucerSwap (V2)?</div>
-        <div class="faq__answer">We are cooking, stay tuned!</div>
     </div>
     <div class="faq__item">
         <div class="faq__question">Do you provide liquidity?</div>
@@ -634,7 +639,7 @@
     </div>
     <div class="faq__item">
         <div class="faq__question">How does economic part of application works, will I pay fee?</div>
-        <div class="faq__answer">EtaSwap is taking pretty small fee (0.2% - 0.5%) per each transaction. More explanation
+        <div class="faq__answer">EtaSwap is taking pretty small fee (0.3%) per each transaction. More explanation
             about fees in
             <a href="https://docs.etaswap.com/fees-explanation">documentation</a>.
         </div>
@@ -646,13 +651,6 @@
             on
             <a href="https://github.com/EtaSwap">Github</a>. We appreciate any kind of participation, feel free to open
             issues, ask questions or make pull requests.
-        </div>
-    </div>
-    <div class="faq__item">
-        <div class="faq__question">Do you plan to audit your smart contracts?</div>
-        <div class="faq__answer">The application in Beta stage at the moment, also we are working on new killer features
-            (such as splitting order among DEX-es), so it's not final version of smart contracts yet. As soon as we will
-            be ready with final features and ready financially we will request smart-contract audit.
         </div>
     </div>
 </div>
