@@ -478,6 +478,24 @@
             left: 0;
         }
 
+        .info {
+            background: rgba(20, 169, 255, 0.6);
+            padding: 15px 15px 15px 58px;
+            border-radius: 8px;
+            border: 1px solid rgb(20, 169, 255);
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto 10px;
+        }
+
+        .info::before {
+            content: 'ⓘ';
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 30px;
+        }
+
         @media screen and (max-width: 992px) {
             .main__screen {
                 -webkit-box-orient: vertical;
@@ -563,8 +581,7 @@
         <img class="logo" src="/logo.svg" alt="η" title="η">
         <h1 class="title">EtaSwap</h1>
         <h3 class="subtitle main__screen-subtitle">First DEX aggregator on Hedera. <br/>Seamless Swaps, Infinite Possibilities.</h3>
-        <a href="https://next.etaswap.com" class="launch">Launch app (next)</a>
-        <a href="https://app.etaswap.com" class="launch launch--shadow">Launch app (beta)</a>
+        <a href="https://app.etaswap.com" class="launch">Launch app</a>
     </div>
     <div class="main__screen-banner-wrapper">
         <img class="main__screen-banner" src="devices.webp" alt="Etaswap on devices">
@@ -614,6 +631,7 @@
 </div>
 <div class="stats" id="stats">
     <h2 class="stats__title">Statistics</h2>
+    <div class="info">Stats below reflect old smart-contracts version usage. New smart-contracts version stats under construction and will be released soon.</div>
     <div class="stats__chart-wrapper">
         <canvas class="stats__chart-small" id="stats-pie"></canvas>
         <canvas class="stats__chart-large" id="stats-bar"></canvas>
@@ -626,7 +644,7 @@
         <div class="faq__answer">Currently we aggregate <a href="https://www.saucerswap.finance/" target="_blank">SaucerSwap (V1 and V2)</a>,
             <a href="https://www.pangolin.exchange/" target="_blank">Pangolin</a>, <a href="https://www.heliswap.io/"
                                                                                       target="_blank">HeliSwap</a>, and
-            <a href="https://hsuite.finance/" target="_blank">HSuite</a> .
+            <a href="https://hsuite.finance/" target="_blank">HSuite</a>.
             But we are always open to add new exchanges if something appears in Hedera ecosystem. Feel free to contact us to
             add another DEX.
         </div>
