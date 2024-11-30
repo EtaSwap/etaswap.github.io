@@ -614,7 +614,7 @@ img {
 }
 
 .faq__checkbox:checked ~ .faq__answer{
-    max-height: 10rem;
+    max-height: none;
     padding-top: 20px;
 }
 
@@ -1013,6 +1013,14 @@ img {
 
     .ready__title {
         text-align: center;
+    }
+
+    .ready__text {
+        text-align: center;
+    }
+
+    .ready__text p {
+        text-align: left;
     }
 
     .footer__wrapper {
