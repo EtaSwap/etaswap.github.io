@@ -853,6 +853,12 @@ img {
     -webkit-text-fill-color: transparent;
 }
 
+.beta {
+    content: 'beta';
+    color: yellow;
+    padding: 0 2px;
+}
+
 @media screen and (max-width: 1199px) {
     .container {
         padding: 0 15px;
